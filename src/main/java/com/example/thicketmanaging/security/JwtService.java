@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "verySecretKeyVerySecretKey";
+    private final String SECRET_KEY = "verySecretKeyVerySecretKeyverySecretKeyVerySecretKey";
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()

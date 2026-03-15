@@ -44,13 +44,12 @@ public class AuthService {
                 )
         );
 
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getUserRole().name());
     }
 
     public AuthResponse login(LoginRequest request) {
 
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow();
+        User user = userRepository.findByUsernameIgnoreCase(request.getUsername()).get();
 
         if (!passwordEncoder.matches(
                 request.getPassword(), user.getPassword())) {
@@ -66,6 +65,6 @@ public class AuthService {
                 )
         );
 
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getUserRole().name());
     }
 }
