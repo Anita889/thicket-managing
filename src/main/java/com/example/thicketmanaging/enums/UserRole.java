@@ -1,8 +1,8 @@
 package com.example.thicketmanaging.enums;
 
 public enum UserRole {
-    THICKET_MANAGER,
+    TICKET_MANAGER,
 
-    THICKET_HANDLER,
+    TICKET_HANDLER,
     ADMIN
 }

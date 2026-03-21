@@ -37,13 +37,13 @@ public class TicketManagerController {
 
     @PostMapping
     public User createManager(@RequestBody User manager) {
-        manager.setUserRole(UserRole.THICKET_MANAGER);
+        manager.setUserRole(UserRole.TICKET_MANAGER);
         return userService.createUser(manager);
     }
 
     @PutMapping("/{id}")
     public Optional<User> updateManager(@PathVariable Long id, @RequestBody User manager) {
-        manager.setUserRole(UserRole.THICKET_MANAGER);
+        manager.setUserRole(UserRole.TICKET_MANAGER);
         return userService.updateUser(id, manager);
     }
 

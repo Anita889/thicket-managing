@@ -49,7 +49,7 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
 
-        User user = userRepository.findByUsernameIgnoreCase(request.getUsername()).get();
+        User user = userRepository.findByUsername(request.getUsername()).get();
 
         if (!passwordEncoder.matches(
                 request.getPassword(), user.getPassword())) {
@@ -65,6 +65,6 @@ public class AuthService {
                 )
         );
 
-        return new AuthResponse(token, user.getUserRole().name());
+        return new AuthResponse(user.getId(), token, user.getUserRole().name());
     }
 }

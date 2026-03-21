@@ -19,14 +19,14 @@ import lombok.Setter;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", unique = true, nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)

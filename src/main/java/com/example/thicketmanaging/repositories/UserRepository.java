@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByUsernameIgnoreCase(String username);
-
-
     @Query(nativeQuery = true, value = "SELECT * FROM users WHERE user_role = :userRole")
-    List<User> findByRole(UserRole userRole);
+    List<User> findByRole(@Param("userRole") UserRole userRole);
+
+    Optional<User> findByUsername(String username);
 }

@@ -1,18 +1,18 @@
 CREATE TABLE users (
-                       id bigint PRIMARY KEY,
-                       username VARCHAR(255),
-                       password VARCHAR(255),
+                       id BIGSERIAL PRIMARY KEY,
+                       username VARCHAR(255) unique not null ,
+                       password VARCHAR(255) unique not null ,
                        user_role VARCHAR(50)
 );
 
 CREATE TABLE projects (
-                          id bigint PRIMARY KEY,
+                          id BIGSERIAL PRIMARY KEY,
                           name VARCHAR(255) NOT NULL,
                           description VARCHAR(1000)
 );
 
 CREATE TABLE categories (
-                            id bigint PRIMARY KEY,
+                            id BIGSERIAL PRIMARY KEY,
                             name VARCHAR(255),
                             project_id BIGINT,
                             CONSTRAINT fk_category_project
@@ -22,7 +22,7 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE tickets (
-                         id bigint PRIMARY KEY,
+                         id BIGSERIAL PRIMARY KEY,
                          title VARCHAR(255),
                          description VARCHAR(1000),
                          status VARCHAR(50),
@@ -42,7 +42,7 @@ CREATE TABLE tickets (
 );
 
 CREATE TABLE comments (
-                          id bigint PRIMARY KEY,
+                          id BIGSERIAL PRIMARY KEY,
                           content VARCHAR(1000),
                           created_at TIMESTAMP,
                           ticket_id BIGINT,

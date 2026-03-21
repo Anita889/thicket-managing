@@ -6,6 +6,7 @@ import com.example.thicketmanaging.entities.User;
 import com.example.thicketmanaging.enums.UserRole;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,8 +27,9 @@ public class TicketHandlerController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<User> getAllHandlers() {
+        Logger.getLogger("f");
         return userService.getAllHandlers(); // filter role = HANDLER
     }
 
@@ -37,13 +40,13 @@ public class TicketHandlerController {
 
     @PostMapping
     public User createHandler(@RequestBody User handler) {
-        handler.setUserRole(UserRole.THICKET_HANDLER);
+        handler.setUserRole(UserRole.TICKET_HANDLER);
         return userService.createUser(handler);
     }
 
     @PutMapping("/{id}")
     public Optional<User> updateHandler(@PathVariable Long id, @RequestBody User handler) {
-        handler.setUserRole(UserRole.THICKET_HANDLER);
+        handler.setUserRole(UserRole.TICKET_HANDLER);
         return userService.updateUser(id, handler);
     }
 

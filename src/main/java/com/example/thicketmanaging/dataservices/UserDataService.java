@@ -7,6 +7,7 @@ import com.example.thicketmanaging.repositories.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,8 +16,11 @@ public class UserDataService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<User> getAllManagers() {
-        return userRepository.findByRole(UserRole.THICKET_MANAGER);
+        return userRepository.findByRole(UserRole.TICKET_MANAGER);
     }
 
     public Optional<User> getUserById(Long id) {
@@ -24,14 +28,21 @@ public class UserDataService {
     }
 
     public User createUser(User manager) {
+        manager.setPassword(passwordEncoder.encode(manager.getPassword()));
         return userRepository.save(manager);
     }
 
     public Optional<User> updateUser(Long id, User handler) {
         User user = userRepository.findById(id).get();
-        user.setUsername(handler.getUsername());
-        user.setPassword(handler.getPassword());
-        user.setUserRole(handler.getUserRole());
+        if(user.getUserRole()!=null){
+            user.setUserRole(handler.getUserRole());
+        }
+        if (handler.getUsername() != null) {
+            user.setUsername(handler.getUsername());
+        }
+        if (handler.getPassword() != null) {
+            user.setPassword(handler.getPassword());
+        }
         userRepository.save(user);
         return Optional.of(user);
     }
@@ -45,6 +56,6 @@ public class UserDataService {
     }
 
     public List<User> getAllHandlers() {
-        return userRepository.findByRole(UserRole.THICKET_HANDLER);
+        return userRepository.findByRole(UserRole.TICKET_HANDLER);
     }
 }
